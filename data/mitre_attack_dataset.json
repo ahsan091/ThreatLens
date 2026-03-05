@@ -1,0 +1,382 @@
+{
+  "techniques": [
+    {
+      "technique_id": "T1110",
+      "name": "Brute Force",
+      "tactic": "Credential Access",
+      "description": "Adversaries may use brute force techniques to gain access to accounts when passwords are unknown or when password hashes are obtained.",
+      "sub_techniques": [
+        {"id": "T1110.001", "name": "Password Guessing"},
+        {"id": "T1110.002", "name": "Password Cracking"},
+        {"id": "T1110.003", "name": "Password Spraying"},
+        {"id": "T1110.004", "name": "Credential Stuffing"}
+      ],
+      "detection": "Monitor authentication logs for multiple failed login attempts from a single source.",
+      "remediation": [
+        "Implement account lockout policies",
+        "Enable multi-factor authentication",
+        "Block offending IP addresses",
+        "Use strong password policies"
+      ],
+      "log_indicators": ["failed_login", "brute_force", "authentication_failure"]
+    },
+    {
+      "technique_id": "T1059",
+      "name": "Command and Scripting Interpreter",
+      "tactic": "Execution",
+      "description": "Adversaries may abuse command and script interpreters to execute commands, scripts, or binaries.",
+      "sub_techniques": [
+        {"id": "T1059.001", "name": "PowerShell"},
+        {"id": "T1059.003", "name": "Windows Command Shell"},
+        {"id": "T1059.004", "name": "Unix Shell"}
+      ],
+      "detection": "Monitor process creation for suspicious command-line arguments and script execution.",
+      "remediation": [
+        "Restrict script execution policies",
+        "Monitor and log all command execution",
+        "Implement application whitelisting",
+        "Disable unnecessary scripting engines"
+      ],
+      "log_indicators": ["suspicious_command", "script_execution", "powershell_execution"]
+    },
+    {
+      "technique_id": "T1046",
+      "name": "Network Service Discovery",
+      "tactic": "Discovery",
+      "description": "Adversaries may attempt to get a listing of services running on remote hosts and local network infrastructure devices.",
+      "sub_techniques": [],
+      "detection": "Monitor network traffic for port scanning behavior and unusual connection patterns.",
+      "remediation": [
+        "Implement network segmentation",
+        "Use intrusion detection systems",
+        "Block known scanning tools",
+        "Monitor for unusual network connections"
+      ],
+      "log_indicators": ["port_scan", "network_scan", "service_discovery"]
+    },
+    {
+      "technique_id": "T1078",
+      "name": "Valid Accounts",
+      "tactic": "Defense Evasion",
+      "description": "Adversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation, or Defense Evasion.",
+      "sub_techniques": [
+        {"id": "T1078.001", "name": "Default Accounts"},
+        {"id": "T1078.002", "name": "Domain Accounts"},
+        {"id": "T1078.003", "name": "Local Accounts"}
+      ],
+      "detection": "Monitor login activity for unusual access patterns, times, or locations.",
+      "remediation": [
+        "Implement least privilege access",
+        "Regular audit of user accounts",
+        "Enable multi-factor authentication",
+        "Monitor for unusual login patterns"
+      ],
+      "log_indicators": ["successful_login_anomaly", "unusual_login_time", "valid_account_abuse"]
+    },
+    {
+      "technique_id": "T1055",
+      "name": "Process Injection",
+      "tactic": "Defense Evasion",
+      "description": "Adversaries may inject code into processes in order to evade process-based defenses as well as possibly elevate privileges.",
+      "sub_techniques": [
+        {"id": "T1055.001", "name": "Dynamic-link Library Injection"},
+        {"id": "T1055.012", "name": "Process Hollowing"}
+      ],
+      "detection": "Monitor for suspicious process behavior including unexpected DLL loading and memory modifications.",
+      "remediation": [
+        "Use endpoint detection and response tools",
+        "Implement process integrity monitoring",
+        "Enable memory protection features",
+        "Monitor for suspicious process trees"
+      ],
+      "log_indicators": ["process_injection", "suspicious_process", "dll_injection"]
+    },
+    {
+      "technique_id": "T1190",
+      "name": "Exploit Public-Facing Application",
+      "tactic": "Initial Access",
+      "description": "Adversaries may attempt to exploit a weakness in an Internet-facing host or system to initially access a network.",
+      "sub_techniques": [],
+      "detection": "Monitor web server logs for exploitation attempts including SQL injection and command injection.",
+      "remediation": [
+        "Keep applications and services patched",
+        "Implement web application firewalls",
+        "Perform regular vulnerability assessments",
+        "Use input validation and sanitization"
+      ],
+      "log_indicators": ["sql_injection", "xss_attempt", "command_injection", "path_traversal"]
+    },
+    {
+      "technique_id": "T1071",
+      "name": "Application Layer Protocol",
+      "tactic": "Command and Control",
+      "description": "Adversaries may communicate using OSI application layer protocols to avoid detection by blending in with existing traffic.",
+      "sub_techniques": [
+        {"id": "T1071.001", "name": "Web Protocols"},
+        {"id": "T1071.004", "name": "DNS"}
+      ],
+      "detection": "Monitor network traffic for unusual application layer communications.",
+      "remediation": [
+        "Implement deep packet inspection",
+        "Monitor for unusual DNS queries",
+        "Use network traffic analysis tools",
+        "Block known C2 domains and IPs"
+      ],
+      "log_indicators": ["suspicious_connection", "unusual_traffic", "c2_communication"]
+    },
+    {
+      "technique_id": "T1548",
+      "name": "Abuse Elevation Control Mechanism",
+      "tactic": "Privilege Escalation",
+      "description": "Adversaries may circumvent mechanisms designed to control elevated privileges to gain higher-level permissions.",
+      "sub_techniques": [
+        {"id": "T1548.001", "name": "Setuid and Setgid"},
+        {"id": "T1548.003", "name": "Sudo and Sudo Caching"}
+      ],
+      "detection": "Monitor for unauthorized privilege escalation attempts and sudo abuse.",
+      "remediation": [
+        "Restrict sudo access",
+        "Audit privilege escalation events",
+        "Implement just-in-time access",
+        "Remove unnecessary SUID/SGID binaries"
+      ],
+      "log_indicators": ["privilege_escalation", "sudo_abuse", "setuid_abuse"]
+    },
+    {
+      "technique_id": "T1021",
+      "name": "Remote Services",
+      "tactic": "Lateral Movement",
+      "description": "Adversaries may use valid accounts to log into a service that accepts remote connections, such as SSH, RDP, or VNC.",
+      "sub_techniques": [
+        {"id": "T1021.004", "name": "SSH"},
+        {"id": "T1021.001", "name": "Remote Desktop Protocol"}
+      ],
+      "detection": "Monitor for unusual remote access patterns and connections from suspicious IPs.",
+      "remediation": [
+        "Restrict remote access to specific IPs",
+        "Implement VPN for remote access",
+        "Enable MFA for remote services",
+        "Monitor and log all remote sessions"
+      ],
+      "log_indicators": ["ssh_login", "rdp_login", "remote_access"]
+    },
+    {
+      "technique_id": "T1498",
+      "name": "Network Denial of Service",
+      "tactic": "Impact",
+      "description": "Adversaries may perform Network Denial of Service attacks to degrade or block the availability of targeted resources.",
+      "sub_techniques": [
+        {"id": "T1498.001", "name": "Direct Network Flood"}
+      ],
+      "detection": "Monitor network traffic for volumetric anomalies and connection floods.",
+      "remediation": [
+        "Implement rate limiting",
+        "Use DDoS mitigation services",
+        "Configure firewall rules",
+        "Enable connection throttling"
+      ],
+      "log_indicators": ["connection_flood", "dos_attack", "rate_limit_exceeded"]
+    },
+    {
+      "technique_id": "T1070",
+      "name": "Indicator Removal",
+      "tactic": "Defense Evasion",
+      "description": "Adversaries may delete or modify artifacts generated on a host system to remove evidence of their presence.",
+      "sub_techniques": [
+        {"id": "T1070.001", "name": "Clear Windows Event Logs"},
+        {"id": "T1070.002", "name": "Clear Linux or Mac System Logs"}
+      ],
+      "detection": "Monitor for log deletion and modification events.",
+      "remediation": [
+        "Implement centralized logging",
+        "Protect log files with proper permissions",
+        "Enable audit logging for file access",
+        "Use immutable logging solutions"
+      ],
+      "log_indicators": ["log_deletion", "log_modification", "evidence_tampering"]
+    },
+    {
+      "technique_id": "T1136",
+      "name": "Create Account",
+      "tactic": "Persistence",
+      "description": "Adversaries may create an account to maintain access to victim systems.",
+      "sub_techniques": [
+        {"id": "T1136.001", "name": "Local Account"},
+        {"id": "T1136.002", "name": "Domain Account"}
+      ],
+      "detection": "Monitor for unexpected account creation events in authentication and system logs.",
+      "remediation": [
+        "Audit account creation policies",
+        "Alert on unexpected new accounts",
+        "Implement principle of least privilege",
+        "Regularly review user account lists"
+      ],
+      "log_indicators": ["account_creation", "new_user", "unauthorized_account"]
+    },
+    {
+      "technique_id": "T1562",
+      "name": "Impair Defenses",
+      "tactic": "Defense Evasion",
+      "description": "Adversaries may maliciously modify components of a victim environment to hinder or disable defensive mechanisms.",
+      "sub_techniques": [
+        {"id": "T1562.001", "name": "Disable or Modify Tools"},
+        {"id": "T1562.004", "name": "Disable or Modify System Firewall"}
+      ],
+      "detection": "Monitor for modifications to security tools, firewall rules, and logging configurations.",
+      "remediation": [
+        "Protect security tool configurations",
+        "Monitor for firewall rule changes",
+        "Implement tamper protection",
+        "Alert on security service modifications"
+      ],
+      "log_indicators": ["firewall_disabled", "security_tool_modified", "defense_impaired"]
+    },
+    {
+      "technique_id": "T1053",
+      "name": "Scheduled Task/Job",
+      "tactic": "Persistence",
+      "description": "Adversaries may abuse task scheduling functionality to facilitate initial or recurring execution of malicious code.",
+      "sub_techniques": [
+        {"id": "T1053.003", "name": "Cron"},
+        {"id": "T1053.005", "name": "Scheduled Task"}
+      ],
+      "detection": "Monitor for creation of new scheduled tasks or cron jobs.",
+      "remediation": [
+        "Audit scheduled tasks and cron jobs regularly",
+        "Restrict who can create scheduled tasks",
+        "Monitor for unusual task creation",
+        "Use file integrity monitoring on crontab files"
+      ],
+      "log_indicators": ["cron_modification", "scheduled_task_creation", "suspicious_cron"]
+    },
+    {
+      "technique_id": "T1505",
+      "name": "Server Software Component",
+      "tactic": "Persistence",
+      "description": "Adversaries may abuse legitimate extensible development features of servers to establish persistent access to systems.",
+      "sub_techniques": [
+        {"id": "T1505.003", "name": "Web Shell"}
+      ],
+      "detection": "Monitor web server logs for web shell access patterns and unusual POST requests.",
+      "remediation": [
+        "Implement file integrity monitoring on web directories",
+        "Restrict file upload capabilities",
+        "Monitor for unusual web server file changes",
+        "Use web application firewalls"
+      ],
+      "log_indicators": ["web_shell", "suspicious_upload", "backdoor_access"]
+    },
+    {
+      "technique_id": "T1040",
+      "name": "Network Sniffing",
+      "tactic": "Credential Access",
+      "description": "Adversaries may passively sniff network traffic to capture information passing over the network.",
+      "sub_techniques": [],
+      "detection": "Monitor for network interfaces being placed in promiscuous mode.",
+      "remediation": [
+        "Use encrypted protocols (TLS/SSL)",
+        "Implement network segmentation",
+        "Monitor for promiscuous mode changes",
+        "Use encrypted authentication methods"
+      ],
+      "log_indicators": ["promiscuous_mode", "network_sniffing", "packet_capture"]
+    },
+    {
+      "technique_id": "T1003",
+      "name": "OS Credential Dumping",
+      "tactic": "Credential Access",
+      "description": "Adversaries may attempt to dump credentials from the operating system and software to obtain account login information.",
+      "sub_techniques": [
+        {"id": "T1003.001", "name": "LSASS Memory"},
+        {"id": "T1003.008", "name": "/etc/passwd and /etc/shadow"}
+      ],
+      "detection": "Monitor for processes accessing credential stores and sensitive authentication files.",
+      "remediation": [
+        "Implement credential guard",
+        "Restrict access to credential stores",
+        "Monitor for credential dumping tools",
+        "Use privileged access management"
+      ],
+      "log_indicators": ["credential_dump", "passwd_access", "shadow_access", "lsass_access"]
+    },
+    {
+      "technique_id": "T1105",
+      "name": "Ingress Tool Transfer",
+      "tactic": "Command and Control",
+      "description": "Adversaries may transfer tools or other files from an external system into a compromised environment.",
+      "sub_techniques": [],
+      "detection": "Monitor for file downloads using utilities like wget, curl, or certutil.",
+      "remediation": [
+        "Restrict outbound connections",
+        "Monitor for download utility usage",
+        "Implement application whitelisting",
+        "Block known malicious domains"
+      ],
+      "log_indicators": ["file_download", "tool_transfer", "wget_execution", "curl_execution"]
+    },
+    {
+      "technique_id": "T1059.004",
+      "name": "Unix Shell",
+      "tactic": "Execution",
+      "description": "Adversaries may abuse Unix shell commands and scripts for execution, including bash, sh, and other interpreters.",
+      "sub_techniques": [],
+      "detection": "Monitor for suspicious shell command execution patterns.",
+      "remediation": [
+        "Restrict shell access to authorized users",
+        "Monitor and audit shell commands",
+        "Implement command-line logging",
+        "Use restricted shells where possible"
+      ],
+      "log_indicators": ["reverse_shell", "shell_execution", "suspicious_bash"]
+    },
+    {
+      "technique_id": "T1574",
+      "name": "Hijack Execution Flow",
+      "tactic": "Persistence",
+      "description": "Adversaries may execute their own malicious payloads by hijacking the way operating systems run programs.",
+      "sub_techniques": [
+        {"id": "T1574.006", "name": "Dynamic Linker Hijacking"},
+        {"id": "T1574.001", "name": "DLL Search Order Hijacking"}
+      ],
+      "detection": "Monitor for unusual library loading patterns and modifications to execution paths.",
+      "remediation": [
+        "Audit LD_PRELOAD and PATH variables",
+        "Use full path for binary execution",
+        "Implement file integrity monitoring",
+        "Restrict write access to system directories"
+      ],
+      "log_indicators": ["library_hijack", "path_manipulation", "dll_hijack"]
+    }
+  ],
+  "attack_type_mapping": {
+    "brute_force": ["T1110"],
+    "sql_injection": ["T1190"],
+    "xss_attempt": ["T1190"],
+    "command_injection": ["T1190", "T1059"],
+    "path_traversal": ["T1190"],
+    "port_scan": ["T1046"],
+    "privilege_escalation": ["T1548", "T1078"],
+    "suspicious_command": ["T1059"],
+    "suspicious_process": ["T1055", "T1059"],
+    "failed_login": ["T1110", "T1078"],
+    "successful_login_anomaly": ["T1078", "T1021"],
+    "ssh_brute_force": ["T1110", "T1021.004"],
+    "sudo_abuse": ["T1548.003"],
+    "firewall_block": ["T1046", "T1498"],
+    "web_shell": ["T1505.003"],
+    "reverse_shell": ["T1059.004"],
+    "credential_dump": ["T1003"],
+    "file_download": ["T1105"],
+    "account_creation": ["T1136"],
+    "log_tampering": ["T1070"],
+    "cron_modification": ["T1053.003"],
+    "service_failure": ["T1562"],
+    "dos_attack": ["T1498"]
+  },
+  "severity_rules": {
+    "critical": ["reverse_shell", "credential_dump", "web_shell", "privilege_escalation"],
+    "high": ["brute_force", "sql_injection", "command_injection", "account_creation", "ssh_brute_force"],
+    "medium": ["xss_attempt", "path_traversal", "suspicious_command", "sudo_abuse", "port_scan", "cron_modification"],
+    "low": ["failed_login", "service_failure", "firewall_block", "successful_login_anomaly"]
+  }
+}
