@@ -8,7 +8,7 @@ import json
 import subprocess
 
 
-def check_ollama_status(model: str = "llama3.1:8b-instruct") -> dict:
+def check_ollama_status(model: str = "llama3.1:8b") -> dict:
     """
     Check if Ollama is running and the specified model is available.
     
@@ -53,7 +53,7 @@ def check_ollama_status(model: str = "llama3.1:8b-instruct") -> dict:
     return result
 
 
-def pull_model(model: str = "llama3.1:8b-instruct") -> bool:
+def pull_model(model: str = "llama3.1:8b") -> bool:
     """Attempt to pull the specified model via Ollama."""
     try:
         proc = subprocess.run(
@@ -72,7 +72,7 @@ class SOCAgent:
     Falls back to rule-based analysis if AI is unavailable.
     """
 
-    MODEL = "llama3.1:8b-instruct"
+    MODEL = "llama3.1:8b"
     BASE_URL = "http://localhost:11434"
     TEMPERATURE = 0.2
     TIMEOUT = 60

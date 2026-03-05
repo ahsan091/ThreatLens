@@ -1,138 +1,116 @@
-# 🛡️ ThreatLens — AI SOC Analyst Agent
+<div align="center">
 
-**Intelligent Security Log Investigation System**
+# 🛡️ ThreatLens
 
-An AI-powered cybersecurity investigation tool that automates Tier-1 SOC analysis. Upload security logs, detect threats, map to MITRE ATT&CK, and generate professional incident reports — all powered by local AI.
+**The Next-Generation AI Security Operations Center Agent**
+
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white)](https://langchain.com/)
+[![Ollama](https://img.shields.io/badge/Ollama-White?style=for-the-badge&logo=ollama&logoColor=black)](https://ollama.com/)
+
+*Automated Tier-1 Log Triage. Immediate Threat Context. Board-Ready Reporting.*
 
 ---
 
-## ⚡ Quick Start
+</div>
 
-### 1. Install Dependencies
+## 🌟 Overview
+
+**ThreatLens** is an intelligent, privacy-first cybersecurity investigation platform designed to supercharge your Security Operations Center (SOC). 
+
+By seamlessly combining robust deterministic rules engines with the reasoning power of local Large Language Models (LLMs), ThreatLens instantly transforms raw, incomprehensible log files into **actionable security intelligence, correlated incidents, and professional PDF reports**—all running entirely on your local infrastructure.
+
+<br>
+
+## 🚀 Key Capabilities
+
+ThreatLens eliminates alert fatigue and drastically reduces Mean Time to Respond (MTTR):
+
+- 🧠 **Local AI Reasoning**: Powered by `llama3.1:8b-instruct` via Ollama for instant contextual analysis without sending sensitive log data to external cloud APIs.
+- 🔗 **Advanced Event Correlation**: Groups related alerts into unified incidents and detects complex multi-stage attack chains (e.g., *Reconnaissance → Intrusion → Privilege Escalation*).
+- 🎯 **Automated MITRE ATT&CK Mapping**: Seamlessly translates detected threats into the globally recognized MITRE ATT&CK framework for standardized reporting and mitigation.
+- 🌐 **Integrated IP Intelligence**: Automatically triangulates malicious source IPs, fetching deep geolocation and ASN data to identify high-risk hosting providers and origin nations.
+- 📊 **Executive Dashboard**: A premium, dark-themed Streamlit interface delivering instant visibility into severity distributions, attack heatmaps, and temporal timelines.
+- 📄 **One-Click Reporting**: Instantly exports comprehensive investigation summaries in client-ready **PDF, JSON, or Markdown** formats.
+
+<br>
+
+## 📂 Supported Integrations
+
+ThreatLens effortlessly ingests and parses logs from critical infrastructure:
+
+| Endpoint Type | Supported Logs | Detected Threats |
+| :--- | :--- | :--- |
+| **Linux Servers** | `auth.log`, `secure`, `syslog` | Brute Force, Pam Failures, Suspicious `sudo`, Account Creation |
+| **Windows Servers** | Exported Security Events (4624, 4625, 4672, 4688) | Credential Access, Privilege Escalation, Malicious Process Spawning |
+| **Web Applications** | Apache/Nginx Combined Access Logs | SQLi, XSS, Path Traversal, Command Injection, Malicious Scanners |
+| **Network Security** | `ufw` Logs | Port Scans, Targeted Drops |
+
+<br>
+
+## ⚡ Quick Start Deployment
+
+Get ThreatLens running in your environment in minutes.
+
+### 1. Clone & Initialize Environment
 
 ```bash
+git clone https://github.com/your-org/ThreatLens.git
 cd ThreatLens
+
+# Create and activate a pristine Python virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install core dependencies
 pip install -r requirements.txt
 ```
 
-### 2. Install Ollama (for AI-enhanced analysis)
+### 2. Initialize the AI Engine (Ollama)
 
 ```bash
-# Install Ollama
+# Install the Ollama Daemon
 curl -fsSL https://ollama.com/install.sh | sh
 
-# Pull the model
-ollama pull llama3.1:8b-instruct
+# Pull the primary inference model
+ollama pull llama3.1:8b
 ```
+*(Note: ThreatLens is highly resilient and will fall back to its deterministic rules engine if Ollama is unavailable.)*
 
-> **Note:** The system works fully without Ollama using rule-based analysis. Ollama adds an AI reasoning narrative to reports.
-
-### 3. Run the Application
+### 3. Launch the Platform
 
 ```bash
 streamlit run app.py
 ```
+*Navigate to `http://localhost:8501` to begin your investigation.*
 
-Open [http://localhost:8501](http://localhost:8501) in your browser.
+<br>
 
----
+## 🏗️ Architectural Pipeline
 
-## 📂 Supported Log Types
+ThreatLens operates on a streamlined, modular ingestion and analysis pipeline:
 
-| Log Type | Source | Events Detected |
-|----------|--------|----------------|
-| **Linux Auth** | `auth.log`, `secure` | SSH brute force, failed logins, sudo abuse, account creation |
-| **Linux Syslog** | `syslog`, `messages` | Service failures, suspicious cron jobs, OOM kills |
-| **Firewall** | `ufw.log` | Port scans, blocked connections |
-| **Windows** | Exported Event Logs | Event IDs 4624/4625/4672/4688 |
-| **Web Server** | Apache/Nginx access logs | SQL injection, XSS, path traversal, web shells |
+1. **Upload**: Accepts unformatted `.log`, `.txt`, `.csv`, or `.evtx` exports.
+2. **Normalize**: Custom parsers (`linux_parser.py`, `windows_parser.py`, `web_parser.py`) extract telemetry using optimized regex.
+3. **Classify**: The `threat_classifier.py` engine evaluates severity and detects attack signatures.
+4. **Correlate**: Groups temporal and source-based events into unified incidents.
+5. **Map**: `mitre_mapper.py` attaches actionable MITRE TTPs.
+6. **Enrich**: `ip_enrichment.py` executes out-of-band OSINT lookups via `ipwhois`.
+7. **Generate**: The `soc_agent.py` synthesizes the contextual narrative.
 
----
+<br>
 
-## 🏗️ Architecture
+## 🔒 Privacy & Security First
 
-```
-Log Upload → Log Parser → Event Normalization → Threat Classifier
-    → Event Correlation → IP Intelligence → MITRE ATT&CK Mapping
-    → AI SOC Agent (Llama 3.1) → Incident Report Generator
-    → Streamlit Dashboard
-```
-
----
-
-## 📁 Project Structure
-
-```
-ThreatLens/
-├── app.py                          # Streamlit web interface
-├── requirements.txt                # Python dependencies
-├── agent/
-│   ├── soc_agent.py                # AI SOC agent (Ollama/LangChain)
-│   ├── threat_classifier.py        # Rule-based classifier + event correlation
-│   ├── ip_enrichment.py            # IP geolocation via ipwhois
-│   └── tools.py                    # LangChain agent tools
-├── parsers/
-│   ├── __init__.py                 # Auto-detection + routing
-│   ├── linux_parser.py             # Linux auth/syslog/firewall parser
-│   ├── windows_parser.py           # Windows event log parser
-│   ├── web_parser.py               # Apache/Nginx log parser
-│   └── normalizer.py               # Unified event format
-├── mitre/
-│   └── mitre_mapper.py             # MITRE ATT&CK technique mapping
-├── reports/
-│   └── report_generator.py         # PDF/JSON/Markdown reports
-├── data/
-│   └── mitre_attack_dataset.json   # MITRE ATT&CK knowledge base
-├── logs/sample_logs/               # Sample logs for testing
-│   ├── linux_auth.log
-│   ├── linux_syslog.log
-│   ├── windows_security.log
-│   ├── apache_access.log
-│   └── firewall.log
-└── tests/                          # Automated test suite
-    ├── test_linux_parser.py
-    ├── test_windows_parser.py
-    ├── test_web_parser.py
-    ├── test_threat_classifier.py
-    ├── test_mitre_mapper.py
-    └── test_report_generator.py
-```
+ThreatLens was built for restricted environments. **No log data ever leaves your network.** 
+- All LLM inference is performed locally via Ollama.
+- The MITRE ATT&CK knowledge base is stored locally in `data/mitre_attack_dataset.json`.
+- Event processing limits protect your host machine from resource exhaustion.
 
 ---
 
-## 🧪 Running Tests
-
-```bash
-python -m pytest tests/ -v
-```
-
----
-
-## ✨ Key Features
-
-- **AI-Enhanced, Not AI-Dependent** — Full rule-based detection works without Ollama
-- **Event Correlation** — Groups related events into incidents (e.g., 20 failed SSH → 1 brute force incident)
-- **Multi-Stage Attack Detection** — Identifies attack chains (brute force → login → privilege escalation)
-- **IP Intelligence** — Geolocation and ASN enrichment via ipwhois
-- **MITRE ATT&CK Mapping** — Maps all detections to framework techniques
-- **Export Reports** — PDF, JSON, and Markdown formats
-- **5,000 Event Limit** — Protects against processing overload
-- **60s LLM Timeout** — Prevents UI freezes
-
----
-
-## 🛠️ Technology Stack
-
-| Component | Technology |
-|-----------|-----------|
-| Language | Python |
-| AI Agent | LangChain + Ollama |
-| AI Model | Llama 3.1 (8B Instruct) |
-| Web UI | Streamlit |
-| Log Parsing | Python Regex |
-| PDF Export | fpdf2 |
-| IP Intelligence | ipwhois |
-
----
-
-*Built with ❤️ by ThreatLens — AI SOC Analyst Agent*
+<div align="center">
+  <b>Built for Analysts. Powered by AI.</b><br>
+  <i>Empower your security team with ThreatLens today.</i>
+</div>

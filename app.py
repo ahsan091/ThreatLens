@@ -38,83 +38,88 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-    /* ── Import Fonts ── */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+    /* ── Modern Font (Next.js style) ── */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
     /* ── Root Variables ── */
     :root {
-        --bg-primary: #0a0e17;
-        --bg-secondary: #111827;
-        --bg-card: #1a1f2e;
-        --bg-card-hover: #222838;
-        --border-color: #2a3042;
-        --border-glow: rgba(99, 102, 241, 0.3);
-        --text-primary: #e2e8f0;
-        --text-secondary: #94a3b8;
-        --text-muted: #64748b;
-        --accent-blue: #818cf8;
-        --accent-purple: #a78bfa;
-        --accent-cyan: #22d3ee;
-        --accent-green: #34d399;
-        --accent-red: #f87171;
-        --accent-orange: #fb923c;
-        --accent-yellow: #fbbf24;
-        --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        --gradient-danger: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
-        --gradient-success: linear-gradient(135deg, #34d399 0%, #059669 100%);
-        --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
-        --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.15);
+        --bg-main: #000000;
+        --bg-card: rgba(18, 18, 18, 0.6);
+        --bg-sidebar: #050505;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --border-hover: rgba(255, 255, 255, 0.2);
+        --text-primary: #ededed;
+        --text-secondary: #a1a1aa;
+        --accent: #ededed;
+        --accent-glow: rgba(255, 255, 255, 0.1);
     }
 
-    /* ── Global ── */
+    /* ── Global App Canvas ── */
     .stApp {
-        background: var(--bg-primary) !important;
+        background: var(--bg-main) !important;
+        background-image: 
+            radial-gradient(circle at 15% 15%, rgba(255,255,255, 0.03) 0%, transparent 20%),
+            radial-gradient(circle at 85% 85%, rgba(255,255,255, 0.03) 0%, transparent 20%) !important;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        overflow: hidden !important;
+    }
+
+    /* Prevent main body scroll, handle overflow in containers */
+    .main .block-container {
+        max-height: 100vh;
+        overflow-y: auto;
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
     }
 
     .stApp > header { background: transparent !important; }
 
     /* ── Sidebar ── */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #0f1523 0%, #111827 100%) !important;
+        background: var(--bg-sidebar) !important;
         border-right: 1px solid var(--border-color) !important;
     }
     section[data-testid="stSidebar"] .stMarkdown p,
     section[data-testid="stSidebar"] .stMarkdown li {
         color: var(--text-secondary) !important;
         font-size: 0.9rem !important;
+        font-weight: 400 !important;
     }
 
-    /* ── Typography ── */
-    h1 { color: var(--text-primary) !important; font-weight: 800 !important; letter-spacing: -0.02em !important; }
-    h2 { color: var(--text-primary) !important; font-weight: 700 !important; }
-    h3 { color: var(--accent-blue) !important; font-weight: 600 !important; }
-    p, li, span { color: var(--text-secondary) !important; }
+    /* ── Typography (Tight tracking like Vercel) ── */
+    h1 { color: var(--text-primary) !important; font-weight: 800 !important; letter-spacing: -0.04em !important; }
+    h2 { color: var(--text-primary) !important; font-weight: 700 !important; letter-spacing: -0.03em !important; }
+    h3 { color: var(--text-primary) !important; font-weight: 600 !important; letter-spacing: -0.02em !important;}
+    p, li, span { color: var(--text-secondary) !important; letter-spacing: -0.01em !important; }
+    strong { color: var(--text-primary) !important; font-weight: 600 !important; }
 
     /* ── Metric Cards ── */
     div[data-testid="stMetric"] {
         background: var(--bg-card) !important;
         border: 1px solid var(--border-color) !important;
         border-radius: 12px !important;
-        padding: 16px 20px !important;
-        box-shadow: var(--shadow-card) !important;
-        transition: all 0.3s ease !important;
+        padding: 24px !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
     }
     div[data-testid="stMetric"]:hover {
-        border-color: var(--border-glow) !important;
-        box-shadow: var(--shadow-glow) !important;
+        border-color: var(--border-hover) !important;
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-glow) !important;
         transform: translateY(-2px) !important;
     }
     div[data-testid="stMetric"] label {
-        color: var(--text-muted) !important;
+        color: var(--text-secondary) !important;
         font-size: 0.85rem !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.02em !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.05em !important;
     }
     div[data-testid="stMetric"] div[data-testid="stMetricValue"] {
         color: var(--text-primary) !important;
-        font-weight: 700 !important;
-        font-size: 1.8rem !important;
+        font-weight: 800 !important;
+        font-size: 2.2rem !important;
+        letter-spacing: -0.03em !important;
     }
 
     /* ── Data Tables ── */
@@ -124,139 +129,200 @@ st.markdown("""
         overflow: hidden !important;
     }
     .stDataFrame thead th {
-        background: var(--bg-card) !important;
-        color: var(--accent-blue) !important;
+        background: rgba(10,10,10,0.95) !important;
+        color: var(--text-primary) !important;
         font-weight: 600 !important;
-        text-transform: uppercase !important;
-        font-size: 0.8rem !important;
-        letter-spacing: 0.05em !important;
+        font-size: 0.85rem !important;
+        letter-spacing: 0.02em !important;
+        border-bottom: 1px solid var(--border-color) !important;
     }
     .stDataFrame tbody td {
         color: var(--text-secondary) !important;
-        border-color: var(--border-color) !important;
+        border-color: rgba(255,255,255,0.05) !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        font-size: 0.85rem !important;
+    }
+    .stDataFrame table {
+        background-color: transparent !important;
     }
 
-    /* ── Buttons ── */
+    /* ── Buttons (Vercel Style: High Contrast) ── */
     .stDownloadButton > button, .stButton > button {
-        background: var(--gradient-primary) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 8px !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 1px solid transparent !important;
+        border-radius: 6px !important;
         font-weight: 600 !important;
+        font-size: 0.9rem !important;
         padding: 0.5rem 1.5rem !important;
-        transition: all 0.3s ease !important;
-        box-shadow: 0 2px 12px rgba(102, 126, 234, 0.3) !important;
+        transition: all 0.2s ease !important;
+        box-shadow: 0 0 15px rgba(255,255,255,0.1) !important;
     }
     .stDownloadButton > button:hover, .stButton > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.5) !important;
+        background: #e5e5e5 !important;
+        transform: scale(1.02) !important;
+        box-shadow: 0 0 20px rgba(255,255,255,0.2) !important;
+    }
+    .stDownloadButton > button *, .stButton > button * {
+        color: #000000 !important;
     }
 
     /* ── Expander ── */
     .streamlit-expanderHeader {
         background: var(--bg-card) !important;
         border: 1px solid var(--border-color) !important;
-        border-radius: 8px !important;
+        border-radius: 12px !important;
         color: var(--text-primary) !important;
         font-weight: 600 !important;
+        transition: border-color 0.2s ease !important;
+        padding: 1rem !important;
+    }
+    .streamlit-expanderHeader:hover {
+        border-color: var(--border-hover) !important;
+        background: rgba(30, 30, 30, 0.6) !important;
     }
     .streamlit-expanderContent {
-        background: var(--bg-card) !important;
+        background: rgba(10,10,10,0.5) !important;
         border: 1px solid var(--border-color) !important;
         border-top: none !important;
+        border-bottom-left-radius: 12px !important;
+        border-bottom-right-radius: 12px !important;
     }
 
     /* ── File Uploader ── */
     .stFileUploader > div {
-        border: 2px dashed var(--border-color) !important;
-        border-radius: 12px !important;
-        background: var(--bg-card) !important;
+        border: 1px dashed rgba(255,255,255,0.2) !important;
+        border-radius: 16px !important;
+        background: rgba(15,15,15,0.4) !important;
+        padding: 24px !important;
         transition: all 0.3s ease !important;
+        backdrop-filter: blur(10px) !important;
     }
     .stFileUploader > div:hover {
-        border-color: var(--accent-blue) !important;
-        background: var(--bg-card-hover) !important;
+        border-color: rgba(255,255,255,0.6) !important;
+        background: rgba(25,25,25,0.6) !important;
     }
+    .stFileUploader small { color: var(--text-secondary) !important; }
+    .stFileUploader span { color: var(--text-primary) !important; font-weight: 500 !important; }
 
-    /* ── Select Box ── */
-    .stSelectbox > div > div {
-        background: var(--bg-card) !important;
+    /* ── Select Box & Inputs ── */
+    .stSelectbox > div > div, .stCheckbox > div {
+        background: rgba(20,20,20,0.8) !important;
         border-color: var(--border-color) !important;
         border-radius: 8px !important;
         color: var(--text-primary) !important;
+        transition: border-color 0.2s ease;
+    }
+    .stSelectbox > div > div:hover {
+        border-color: rgba(255,255,255,0.4) !important;
     }
 
-    /* ── Tabs ── */
-    .stTabs > div > div > div > button {
-        color: var(--text-muted) !important;
-        font-weight: 500 !important;
-        border-bottom: 2px solid transparent !important;
-        transition: all 0.3s ease !important;
+    /* ── Tabs (Sleek Minimalist) ── */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 32px;
+        background-color: transparent !important;
     }
-    .stTabs > div > div > div > button[aria-selected="true"] {
-        color: var(--accent-blue) !important;
-        border-bottom-color: var(--accent-blue) !important;
+    .stTabs [data-baseweb="tab"] {
+        background-color: transparent !important;
+        border: none !important;
+        border-bottom: 2px solid transparent !important;
+        padding-bottom: 8px !important;
+        padding-top: 8px !important;
+        color: rgba(255,255,255,0.5) !important;
+        font-weight: 500 !important;
+        font-size: 0.95rem !important;
+        transition: color 0.2s ease, border-color 0.2s ease !important;
+    }
+    .stTabs [aria-selected="true"] {
+        color: #ffffff !important;
+        border-bottom-color: #ffffff !important;
+    }
+
+    /* ── Status Card Custom Render ── */
+    .status-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 24px;
+        margin: 12px 0;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        transition: all 0.2s ease;
+    }
+    .status-card:hover {
+        border-color: rgba(255,255,255,0.3);
+        background: rgba(25, 25, 25, 0.8);
+        transform: translateY(-2px);
+    }
+    .status-connected { border-left: 3px solid #ededed; }
+    .status-disconnected { border-left: 3px solid #ef4444; }
+
+    /* ── Hero Header (Glassmorphic & Sleek) ── */
+    .hero-header {
+        background: radial-gradient(100% 100% at 50% 0%, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0) 100%);
+        border: 1px solid var(--border-color);
+        border-radius: 24px;
+        padding: 40px 32px;
+        margin-bottom: 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(20px);
+    }
+    .hero-header::before {
+        content: '';
+        position: absolute; top: 0; left: 15%; right: 15%; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    }
+    .hero-header h1 {
+        background: linear-gradient(to bottom right, #ffffff, #888888);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 3rem !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.05em !important;
+        margin-bottom: 8px !important;
+    }
+    .hero-subtitle {
+        color: var(--text-secondary) !important;
+        font-size: 1.05rem;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        max-width: 600px;
+        margin: 0 auto;
     }
 
     /* ── Custom Badge Styles ── */
     .severity-badge {
         display: inline-block;
-        padding: 2px 10px;
-        border-radius: 12px;
+        padding: 3px 10px;
+        border-radius: 8px;
         font-size: 0.75rem;
-        font-weight: 700;
+        font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-    }
-    .sev-critical { background: rgba(248,113,113,0.2); color: #f87171; border: 1px solid rgba(248,113,113,0.3); }
-    .sev-high { background: rgba(251,146,60,0.2); color: #fb923c; border: 1px solid rgba(251,146,60,0.3); }
-    .sev-medium { background: rgba(251,191,36,0.2); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
-    .sev-low { background: rgba(52,211,153,0.2); color: #34d399; border: 1px solid rgba(52,211,153,0.3); }
-
-    /* ── Status Card ── */
-    .status-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 16px;
-        margin: 8px 0;
-    }
-    .status-connected { border-left: 4px solid #34d399; }
-    .status-disconnected { border-left: 4px solid #f87171; }
-
-    /* ── Hero Header ── */
-    .hero-header {
-        background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(167,139,250,0.1) 100%);
-        border: 1px solid var(--border-color);
-        border-radius: 16px;
-        padding: 24px 32px;
-        margin-bottom: 24px;
-        text-align: center;
-    }
-    .hero-header h1 {
-        background: linear-gradient(135deg, #818cf8, #a78bfa, #22d3ee);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        font-size: 2.2rem !important;
-        margin-bottom: 4px !important;
-    }
-    .hero-subtitle {
-        color: var(--text-muted) !important;
-        font-size: 1rem;
-        font-weight: 400;
     }
 
     /* ── Scrollbar ── */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg-primary); }
-    ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
+    ::-webkit-scrollbar-track { background: var(--bg-main); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
 
     /* ── Hide Streamlit Defaults ── */
     #MainMenu { visibility: hidden; }
     footer { visibility: hidden; }
+    header { visibility: hidden; }
+    .stAppHeader { display: none; }
     .stDeployButton { display: none; }
+    
+    /* Hide Header Anchor Links */
+    .stMarkdown h1 a, .stMarkdown h2 a, .stMarkdown h3 a, 
+    .stMarkdown h4 a, .stMarkdown h5 a, .stMarkdown h6 a {
+        display: none !important;
+    }
+    a.st-anchor-link { display: none !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -272,92 +338,6 @@ def load_mitre_dataset():
 
 # ─── Sidebar ──────────────────────────────────────────────────────────
 
-with st.sidebar:
-    st.markdown("""
-    <div style="text-align:center; padding: 12px 0 8px 0;">
-        <span style="font-size: 2.5rem;">🛡️</span>
-        <h2 style="margin-top: 4px; background: linear-gradient(135deg, #818cf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.4rem;">
-            ThreatLens
-        </h2>
-        <p style="color: #64748b !important; font-size: 0.8rem; margin-top: -8px;">AI SOC Analyst Agent</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("---")
-
-    # LLM Status
-    st.markdown("##### 🤖 LLM Status")
-    ollama_status = check_ollama_status(MODEL_NAME)
-
-    if ollama_status['ollama_running'] and ollama_status['model_available']:
-        status_class = "status-connected"
-        status_icon = "✅"
-    else:
-        status_class = "status-disconnected"
-        status_icon = "❌"
-
-    st.markdown(f"""
-    <div class="status-card {status_class}">
-        <div style="color: #e2e8f0; font-size: 0.85rem; font-weight: 600;">
-            {status_icon} {ollama_status['status_message']}
-        </div>
-        <div style="color: #64748b; font-size: 0.75rem; margin-top: 4px;">
-            Engine: Ollama &nbsp;|&nbsp; Model: {MODEL_NAME}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    if not ollama_status['model_available'] and ollama_status['ollama_running']:
-        if st.button("📥 Pull Model", key="pull_model"):
-            with st.spinner(f"Pulling {MODEL_NAME}..."):
-                from agent.soc_agent import pull_model
-                success = pull_model(MODEL_NAME)
-                if success:
-                    st.success("Model pulled successfully!")
-                    st.rerun()
-                else:
-                    st.error("Failed to pull model.")
-
-    st.markdown("---")
-
-    # Log Upload
-    st.markdown("##### 📂 Log Upload")
-
-    log_type = st.selectbox(
-        "Log Type",
-        options=['auto', 'linux_auth', 'linux_syslog', 'firewall', 'windows', 'web'],
-        format_func=lambda x: {
-            'auto': '🔍 Auto-Detect',
-            'linux_auth': '🐧 Linux Auth Log',
-            'linux_syslog': '🐧 Linux Syslog',
-            'firewall': '🔥 Firewall Log',
-            'windows': '🪟 Windows Event Log',
-            'web': '🌐 Web Server Log',
-        }.get(x, x),
-    )
-
-    uploaded_file = st.file_uploader(
-        "Upload log file",
-        type=['log', 'txt', 'evtx', 'csv'],
-        help="Supports Linux auth/syslog, Windows event logs, Apache/Nginx access logs, firewall logs"
-    )
-
-    # IP Intelligence toggle
-    st.markdown("---")
-    st.markdown("##### ⚙️ Settings")
-    enable_ip_intel = st.checkbox("🌐 Enable IP Intelligence", value=False,
-                                  help="Look up geolocation and ASN for source IPs using ipwhois")
-    enable_ai = st.checkbox("🤖 Enable AI Analysis", value=True,
-                            help="Use Ollama LLM for enhanced investigation narrative")
-
-    # Event limit indicator
-    st.markdown(f"""
-    <div style="background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2);
-                border-radius: 8px; padding: 10px; margin-top: 12px;">
-        <div style="color: #818cf8; font-size: 0.8rem; font-weight: 600;">📊 Event Limit</div>
-        <div style="color: #94a3b8; font-size: 0.75rem;">Max {MAX_EVENTS:,} events per upload</div>
-    </div>
-    """, unsafe_allow_html=True)
 
 # ─── Main Content ─────────────────────────────────────────────────────
 
@@ -368,6 +348,37 @@ st.markdown("""
     <p class="hero-subtitle">AI-Powered Security Operations Center Analyst</p>
 </div>
 """, unsafe_allow_html=True)
+
+# ─── Control Panel ───
+st.markdown("<h3 style='margin-bottom: 24px; font-size: 1.4rem; color: #ededed; text-align: center;'>📂 Log Ingestion</h3>", unsafe_allow_html=True)
+
+col_spacer1, col_center, col_spacer2 = st.columns([1, 2, 1])
+
+with col_center:
+    log_type = st.selectbox(
+        "Log Type Decoder",
+        options=['auto', 'linux_auth', 'linux_syslog', 'firewall', 'windows', 'web'],
+        format_func=lambda x: {
+            'auto': '🔍 Auto-Detect Format',
+            'linux_auth': '🐧 Linux Auth Log',
+            'linux_syslog': '🐧 Linux Syslog',
+            'firewall': '🔥 Network Firewall',
+            'windows': '🪟 Windows Events',
+            'web': '🌐 Web Access Log',
+        }.get(x, x),
+        label_visibility="collapsed"
+    )
+
+    uploaded_file = st.file_uploader(
+        "Drop File via Streamlit Upload",
+        type=['log', 'txt', 'evtx', 'csv'],
+        label_visibility="collapsed"
+    )
+
+# Silent configuration for removed UI components
+enable_ai = True
+enable_ip_intel = False
+ollama_status = check_ollama_status(MODEL_NAME)
 
 # ─── Analysis Pipeline ───────────────────────────────────────────────
 
@@ -710,48 +721,6 @@ else:
         </p>
     </div>
     """, unsafe_allow_html=True)
-
-    # Supported log types
-    st.markdown("---")
-    st.markdown("### 📋 Supported Log Types")
-
-    sup_col1, sup_col2, sup_col3 = st.columns(3)
-
-    with sup_col1:
-        st.markdown("""
-        <div class="status-card" style="border-left: 4px solid #818cf8;">
-            <h4 style="color: #818cf8 !important;">🐧 Linux</h4>
-            <ul style="color: #94a3b8 !important; font-size: 0.85rem;">
-                <li>auth.log / secure</li>
-                <li>syslog / messages</li>
-                <li>UFW firewall logs</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with sup_col2:
-        st.markdown("""
-        <div class="status-card" style="border-left: 4px solid #a78bfa;">
-            <h4 style="color: #a78bfa !important;">🪟 Windows</h4>
-            <ul style="color: #94a3b8 !important; font-size: 0.85rem;">
-                <li>Event ID 4624/4625</li>
-                <li>Event ID 4672/4688</li>
-                <li>Exported Event Logs</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with sup_col3:
-        st.markdown("""
-        <div class="status-card" style="border-left: 4px solid #22d3ee;">
-            <h4 style="color: #22d3ee !important;">🌐 Web</h4>
-            <ul style="color: #94a3b8 !important; font-size: 0.85rem;">
-                <li>Apache access logs</li>
-                <li>Nginx access logs</li>
-                <li>Combined log format</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
 
     # Pipeline visualization
     st.markdown("---")
